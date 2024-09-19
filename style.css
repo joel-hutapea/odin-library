@@ -1,0 +1,19 @@
+th, td {
+    padding: 8px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+form > div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+#read {
+    align-self: start;
+}
