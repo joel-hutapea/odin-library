@@ -1,4 +1,33 @@
-var myLibrary = [];
+class Book {
+    constructor(title, author, pages, read) {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = read;
+    }
+
+    toggleRead() {
+        this.read = !this.read;
+    }
+}
+
+class Library {
+    #books = [];
+
+    get books() {
+        return this.#books;
+    }
+
+    addBook(book) {
+        this.#books.push(book);
+    }
+
+    removeBook(index) {
+        this.#books.splice(index, 1);
+    }
+}
+
+var myLibrary = new Library();
 
 let table = document.querySelector("#library-table");
 let dialog = document.querySelector("dialog");
@@ -53,22 +82,15 @@ cancelButton.addEventListener("click", (e) => {
     dialog.close();
 })
 
-function Book(title, author, pages, read) {
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
-}
-
 function addBookToLibrary(title, author, pages, read) {
     let book = new Book(title, author, pages, read);
-    myLibrary.push(book);
+    myLibrary.addBook(book);
 }
 
 function displayBooks() {
     table.replaceChildren(table.firstElementChild);
 
-    myLibrary.forEach((book, index) => {
+    myLibrary.books.forEach((book, index) => {
         var row = document.createElement("tr");
 
         var title = document.createElement("td");
@@ -112,12 +134,12 @@ function displayBooks() {
 }
 
 function removeBook(index) {
-    myLibrary.splice(index, 1);
+    myLibrary.removeBook(index);
     displayBooks();
 }
 
 function toggleRead(index) {
-    myLibrary[index].read = !myLibrary[index].read;
+    myLibrary.books[index].toggleRead();
     displayBooks();
 }
 
